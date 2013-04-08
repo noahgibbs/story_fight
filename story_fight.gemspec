@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = StoryFight::VERSION
   spec.authors       = ["Noah Gibbs"]
   spec.email         = ["noah_gibbs@yahoo.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Stories fight, one or more win.}
+  spec.summary       = %q{Stories fight, one or more win.}
+  spec.homepage      = "https://github.com/noahgibbs/story_fight"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

@@ -1,6 +1,15 @@
 # StoryFight
 
-TODO: Write a gem description
+StoryFight is an early attempt at an emergent-story framework where
+multiple competing stories can attempt to "gel" into the true
+narrative(s).
+
+## Notes
+
+Nearly all stories here are necessarily meta-stories.  So a single
+rule can easily have multiple versions competing.  While I'll try and
+keep things meta enough to be useful, a lot of this will be hacky and
+special-purpose, on purpose, to let me sketch usefully.
 
 ## Installation
 
