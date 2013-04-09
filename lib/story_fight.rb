@@ -23,13 +23,12 @@ require "story_fight/meta"
 
 module StoryFight
 
-  module Story
-    # A MetaStory is a class of stories such as "the hero faces a
-    # hazard to rescue the romantic interest."  It can be instantiated
-    # to make one or more instances, based on who is available to play
-    # each role.
-    #
-    class Meta; end
+  # A StoryFight::Story is a class of stories such as "the hero faces
+  # a hazard to rescue the romantic interest."  It can be instantiated
+  # to make one or more instances, based on who is available to play
+  # each role.
+  #
+  class Story
   end
 
   class World

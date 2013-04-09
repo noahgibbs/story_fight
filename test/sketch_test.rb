@@ -15,9 +15,9 @@ class SketchTest < MiniTest::Unit::TestCase
     @sneeze = @world.new_action :desc => :Sneeze, :spec => [ :involuntary ]
     @whistle = @world.new_action :desc => :Whistle, :spec => [ :musical ]
 
-    @meta1 = Story::Meta.new :obj1 => { :desc => :the_man, :is => :actor, :spec => :man },
+    @story1 = Story.new :obj1 => { :desc => :the_man, :is => :actor, :spec => :man },
       :action1 => { :is => :action, :spec => :involuntary }
-    @meta2 = Story::Meta.new :obj1 => { :desc => :the_man, :is => :actor, :spec => :man },
+    @story2 = Story.new :obj1 => { :desc => :the_man, :is => :actor, :spec => :man },
       :action1 => { :is => :action, :spec => :involuntary }, :obj2 => { :is => :actor, :spec => :nobody }
   end
 
@@ -32,10 +32,10 @@ class SketchTest < MiniTest::Unit::TestCase
         { :obj1 => @joe, :action1 => @burp },
         { :obj1 => @joe, :action1 => @sneeze },
       ],
-      @meta1.bind(@world).sort_by { |binding| [binding[:obj1].desc, binding[:action1].desc] }
+      @story1.bind(@world).sort_by { |binding| [binding[:obj1].desc, binding[:action1].desc] }
   end
 
   def test_no_result_bind
-    assert_equal [], @meta2.bind(@world)
+    assert_equal [], @story2.bind(@world)
   end
 end
