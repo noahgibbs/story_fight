@@ -17,6 +17,8 @@ class SketchTest < MiniTest::Unit::TestCase
 
     @meta1 = Story::Meta.new :obj1 => { :desc => :the_man, :is => :actor, :spec => :man },
       :action1 => { :is => :action, :spec => :involuntary }
+    @meta2 = Story::Meta.new :obj1 => { :desc => :the_man, :is => :actor, :spec => :man },
+      :action1 => { :is => :action, :spec => :involuntary }, :obj2 => { :is => :actor, :spec => :nobody }
   end
 
   def test_basic_bind
@@ -25,11 +27,15 @@ class SketchTest < MiniTest::Unit::TestCase
 
     # For the comparison, sort on actor desc then action desc
     assert_equal [
-      { :obj1 => @bob, :action1 => @burp },
-      { :obj1 => @bob, :action1 => @sneeze },
-      { :obj1 => @joe, :action1 => @burp },
-      { :obj1 => @joe, :action1 => @sneeze },
-    ],
+        { :obj1 => @bob, :action1 => @burp },
+        { :obj1 => @bob, :action1 => @sneeze },
+        { :obj1 => @joe, :action1 => @burp },
+        { :obj1 => @joe, :action1 => @sneeze },
+      ],
       @meta1.bind(@world).sort_by { |binding| [binding[:obj1].desc, binding[:action1].desc] }
+  end
+
+  def test_no_result_bind
+    assert_equal [], @meta2.bind(@world)
   end
 end
