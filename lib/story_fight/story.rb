@@ -19,10 +19,9 @@ module StoryFight
         # Assume existing bindings are correct
         next if bound_details[name]
 
-        method_name = conditions[:is].to_s + "s"
-        obj_list = world.send(method_name)
+        obj_list = world.details
 
-        spec = [conditions[:spec] || []].flatten
+        spec = [conditions[:is] || []].flatten
 
         did_bind = false
         bindings = []

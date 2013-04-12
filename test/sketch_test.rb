@@ -6,19 +6,20 @@ class SketchTest < MiniTest::Unit::TestCase
   def setup
     @world = World.new
 
-    @joe = @world.new_actor :desc => :Joe, :spec => [ :man ]
+    @joe = @world.new_detail :desc => :Joe, :is => [ :actor, :man ]
 
-    @sam = @world.new_actor :desc => :Sam
-    @bob = @world.new_actor :desc => :Bob, :spec => [ :man, :green ]
+    @sam = @world.new_detail :desc => :Sam, :is => [ :actor ]
+    @bob = @world.new_detail :desc => :Bob, :is => [ :actor, :man, :green ]
 
-    @burp = @world.new_action :desc => :Burp, :spec => [ :involuntary ]
-    @sneeze = @world.new_action :desc => :Sneeze, :spec => [ :involuntary ]
-    @whistle = @world.new_action :desc => :Whistle, :spec => [ :musical ]
+    @burp = @world.new_detail :desc => :Burp, :is => [ :action, :involuntary ]
+    @sneeze = @world.new_detail :desc => :Sneeze, :is => [ :action, :involuntary ]
+    @whistle = @world.new_detail :desc => :Whistle, :is => [ :action, :musical ]
 
-    @story1 = Story.new :obj1 => { :desc => :the_man, :is => :actor, :spec => :man },
-      :action1 => { :is => :action, :spec => :involuntary }
-    @story2 = Story.new :obj1 => { :desc => :the_man, :is => :actor, :spec => :man },
-      :action1 => { :is => :action, :spec => :involuntary }, :obj2 => { :is => :actor, :spec => :nobody }
+    @story1 = Story.new :the_man => { :is => [:actor, :man] },
+      :action1 => { :is => [:action, :involuntary] }
+    @story2 = Story.new :the_man => { :is => [:actor, :man] },
+      :action1 => { :is => [:action, :involuntary] },
+      :other_man => { :is => [:actor, :nobody] }
   end
 
   def test_basic_bind
@@ -27,12 +28,12 @@ class SketchTest < MiniTest::Unit::TestCase
 
     # For the comparison, sort on actor desc then action desc
     assert_equal [
-        { :obj1 => @bob, :action1 => @burp },
-        { :obj1 => @bob, :action1 => @sneeze },
-        { :obj1 => @joe, :action1 => @burp },
-        { :obj1 => @joe, :action1 => @sneeze },
+        { :the_man => @bob, :action1 => @burp },
+        { :the_man => @bob, :action1 => @sneeze },
+        { :the_man => @joe, :action1 => @burp },
+        { :the_man => @joe, :action1 => @sneeze },
       ],
-      @story1.bind(@world).sort_by { |binding| [binding[:obj1].desc, binding[:action1].desc] }
+      @story1.bind(@world).sort_by { |binding| [binding[:the_man].desc, binding[:action1].desc] }
   end
 
   def test_no_result_bind

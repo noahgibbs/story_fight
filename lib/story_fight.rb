@@ -1,5 +1,5 @@
 require "story_fight/version"
-require "story_fight/meta"
+require "story_fight/story"
 
 # Inspiration:
 #
@@ -10,15 +10,21 @@ require "story_fight/meta"
 # various possible subplots involving them that don't contradict
 # the known lore of the existing patrons.
 #
-# Basically, the bar can develop as it stories get more intricate,
-# and as people come and go the bar will have a different set
-# of stories available.
+# Basically, the bar can develop as it stories get more intricate, and
+# as people come and go the bar will have a different set of stories
+# available.
 #
 # Stories are built on, among others:
 #
 # * Facts about people
 # * Relationships between people
 # * Rumors and other current events
+
+
+# Uses: I'm thinking this could become a little AI planning engine.
+# AIs come up with goals to satisfy a variety of wants and choose
+# between them.  This story engine is the planning engine to come up
+# with goals, choose between them and so on.
 
 
 module StoryFight
@@ -32,63 +38,29 @@ module StoryFight
   end
 
   class World
-    attr_reader :places, :actors, :things, :actions
+    attr_reader :details
 
     def initialize(options = {})
-      @places = []
-      @actors = []
-      @things = []
-      @actions = []
+      @details = []
     end
 
-    def new_actor(options = {})
-      @actors << Actor.new(options)
-      @actors[-1]
+    def new_detail(options = {})
+      @details << Detail.new(options)
+      @details[-1]
     end
 
-    def new_thing(options = {})
-      @things << Thing.new(options)
-      @things[-1]
-    end
-
-    def new_place(options = {})
-      @places << Place.new(options)
-      @places[-1]
-    end
-
-    def new_action(options = {})
-      @actions << Action.new(options)
-      @actions[-1]
-    end
-
-    # A Specifiable object can have specifics attached to it that are
+    # A Detail object can have specifics attached to it that are
     # germane to the story.
     #
-    module Specifiable
+    class Detail
       attr_reader :adjectives, :desc
 
       def initialize(options = {})
-        @adjectives = options.delete(:spec) || []
+        @adjectives = options.delete(:is) || []
         @desc = options.delete(:desc) || :NoDesc
 
         super()
       end
-    end
-
-    class Place
-      include Specifiable
-    end
-
-    class Actor
-      include Specifiable
-    end
-
-    class Thing
-      include Specifiable
-    end
-
-    class Action
-      include Specifiable
     end
   end
 end
