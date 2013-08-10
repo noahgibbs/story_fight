@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require "story_fight/generator"
+require "trollop"
+
+opts = Trollop::options do
+  opt :type, "Type of word or phrase to generate.",                        :default => "start"
+  opt :n,    "Number of times to generate.",             :type => Integer, :default => 1
+end
+
+generator = StoryFight::Generator.new
+
+rule_files = ARGV
+rule_files.each { |f| generator.load_json_file f }
+
+puts (1..opts[:n]).map { generator.generate(opts[:type]) }.join("\n")
