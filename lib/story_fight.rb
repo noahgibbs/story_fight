@@ -62,5 +62,9 @@ module StoryFight
         super()
       end
     end
+
+    def step(time_delta = 1.0)
+      raise "Unimplemented!"
+    end
   end
 end
