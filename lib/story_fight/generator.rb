@@ -57,7 +57,7 @@ module StoryFight
         end
 
         case expr[0]
-        when "one_of"
+        when "one_of", "||", "any"
           evaluate_expr get_one_of(expr[1..-1])
         when "+"
           expr[1..-1].map { |e| evaluate_expr(e) }.join("")

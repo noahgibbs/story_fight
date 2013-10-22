@@ -1,24 +1,21 @@
 {
   "element_suffix":
-    ["one_of", "um", "ium", [0.5, "inium"], [0.5, "ennium"], "erium", [0.5, "erbium"],
+    ["||", "um", "ium", [0.5, "inium"], [0.5, "ennium"], "erium", [0.5, "erbium"],
                "inum", "ite", "inite", "anite", [0.5, "on"], "uth", "ine"],
   "gemmy_suffix":
-    ["one_of", "ony", [0.5,"onyx"], [0.5, "az"], [0.5, "anum"], [0.5, "annum"], [0.3, "ot"], [0.4, "oprase"]],
+    ["||", "ony", [0.5,"onyx"], [0.5, "az"], [0.5, "anum"], [0.5, "annum"], [0.3, "ot"], [0.4, "oprase"]],
   "gemmy_adjective":
-    ["one_of", "smoky", [0.5,"rosy"], [0.2, "murky"], "mottled", [0.8, "serpentine"], "glossy", [0.5, "opalescent"],
+    ["||", "smoky", [0.5,"rosy"], [0.2, "murky"], "mottled", [0.8, "serpentine"], "glossy", [0.5, "opalescent"],
                [0.3, "mossy"], [0.1, "star"], [0.1, "tiger's-eye"], [0.2, "cat's-eye"], [0.8, "banded"], [0.6, "striped"],
                [0.4, "ribald"], [0.8, "dendritic"]],
   "element_adjective":
-    ["one_of", [0.3, "heterodynamic"], "electrified", "aetheric", "rarefied", [0.1, "diatomaceous"], [0.8, "refined"],
+    ["||", [0.3, "heterodynamic"], "electrified", "aetheric", "rarefied", [0.1, "diatomaceous"], [0.8, "refined"],
                [0.8, "distilled"], [0.5, "revivified"], [0.5, "phlogisticated"], "oxidized", "nitrified"],
-  "either_silly_scientist_name":
-    ["one_of", "Jormundgander", "Phlox", "Endymion", "Hyperion", "Zogron", "Hypatia", "Gulinia"],
-  "modifiable_silly_scientist_name":
-    ["one_of", "Heterod", [30.0, ":either_silly_scientist_name"]],
   "silly_scientist_name":
-    ["one_of", "Heterodyne", [30.0, ":either_silly_scientist_name"]],
+    ["||", "Jormundgander", "Phlox", "Endymion", "Hyperion", "Zogron", "Hypatia", "Gulinia", [0.1, "Heterodyne"],
+           "Borgamantula", "Smith"],
   "first_half_scientist_name":
-    ["one_of", "Arden", "Avern", "Bach", "Eisen", "Cram", "Gord", "Gibb", "Gram", "Gra", "Glock",
+    ["||", "Arden", "Avern", "Bach", "Eisen", "Cram", "Gord", "Gibb", "Gram", "Gra", "Glock",
                "Glocken", "Phlox", "Phree", "Fargen", "Franken", "Schlock", "Schach", "Sherben",
                "Schmott", "Jagen", "Jott", "Jaunte", "Wargen", "Van", "Wirt", "Jormund",
                [ 0.5, "+", "van der ", ":first_half_scientist_name" ],
@@ -26,59 +23,53 @@
                [ 0.5, "+", "von ", ":first_half_scientist_name" ]
     ],
   "second_half_scientist_name":
-    ["one_of", "wanger", "vander", "wander", "varger", "saggler", "feuer", "farber", "rich", "reich",
+    ["||", "wanger", "vander", "wander", "varger", "saggler", "feuer", "farber", "rich", "reich",
                "hauer", "baum", "triggan", "ham", "hammer", "heimer", "hejmer", "burg", "berg", "see",
-               "spiel", "stein", "furd", "garten", "garter", "gannen",
+               "spiel", "stein", "furd", "garten", "garter", "gannen", "smith", "glock",
                [ "+", ":second_half_scientist_name", "-", "scientist_name" ]
     ],
-  "either_compound_scientist_name":
-    ["+", ":first_half_scientist_name", ":second_half_scientist_name"],
-  "modifiable_compound_scientist_name":
-    ["one_of", [30.0, ":either_compound_scientist_name"]],
   "compound_scientist_name":
-    ["one_of", [30.0, ":either_compound_scientist_name"]],
+    ["+", ":first_half_scientist_name", ":second_half_scientist_name"],
   "scientist_name":
-    ["one_of", ":silly_scientist_name", [8.0, ":compound_scientist_name"]],
-  "modifiable_scientist_name":
-    ["one_of", ":modifiable_silly_scientist_name", [8.0, ":modifiable_compound_scientist_name"]],
+    ["||", ":silly_scientist_name", [8.0, ":compound_scientist_name"]],
   "scientist_possessive":
-    ["one_of", ["+", ":scientist_name", "'s"], ["+", ":modifiable_scientist_name", "-ian"],
-               ["+", ":modifiable_scientist_name", "-ized"], ["+", ":modifiable_scientist_name", "-ified"]
+    ["||", ["+", ":scientist_name", "'s"], ["+", ":scientist_name", "-ian"],
+               ["+", ":scientist_name", "-ized"], ["+", ":scientist_name", "-ified"]
     ],
   "common_object":
-    ["one_of", "diamond", [0.2, "demantoid"], "topaz", [0.4, "sapphire"], "earth", [0.1, "islet"],
-               [0.5, "crown"], "horn", "sword", "eye", "hand", [0.2, "copper"], [0.2, "iron"],
-               "ash", "zircon", [0.5, "ruby"]],
+    ["||", "diamond", [0.2, "demantoid"], "topaz", [0.4, "sapphire"], "earth", [0.1, "islet"],
+               [0.5, "crown"], "horn", "sword", "eye", [0.2, "copper"], [0.2, "iron"],
+               "ash", "zircon", [0.5, "ruby"], "folly"],
   "gemmy_name":
     ["+", ":optional_gemmy_color", ":optional_gemmy_adjective", ":syllables", ":consonant", ":gemmy_suffix"],
   "optional_gemmy_color":
-    ["one_of", ["+", ":color", " "], ""],
+    ["||", ["+", ":color", " "], ""],
   "optional_gemmy_adjective":
-    ["one_of", ["+", ":gemmy_adjective", " "], ""],
+    ["||", ["+", ":gemmy_adjective", " "], ""],
   "optional_scientist_possessive":
-    ["one_of", [0.15, "+", ":scientist_possessive", " "], ""],
+    ["||", [0.15, "+", ":scientist_possessive", " "], ""],
   "optional_element_adjective":
-    ["one_of", [0.3, "+", ":element_adjective", " "], ""],
+    ["||", [0.3, "+", ":element_adjective", " "], ""],
   "element_name":
     ["+", ":optional_scientist_possessive", ":optional_element_adjective", ":syllables", ":consonant", ":element_suffix"],
   "scientist_element_name":
     ["+", ":scientist_possessive", " ", ":syllables", ":consonant", ":element_suffix"],
   "color":
-    ["one_of", "red", "green", [0.2,"chartreuse"], "white", "clear", "crystal", "black", "brown", "yellow",
+    ["||", "red", "green", [0.2,"chartreuse"], "white", "clear", "crystal", "black", "brown", "yellow",
                [0.6, "silver"], "blue", [0.5, "cyan"],[0.5, "crimson"],[0.5, "maroon"],[0.6, "golden"]
     ],
   "vowel":
-    ["one_of", [1.5, "a"], [1.5, "e"], [1.5, "i"], "o", "u", [0.2, "oo"], [0.8, "ae"], [0.5, "ei"],
+    ["||", [1.5, "a"], [1.5, "e"], [1.5, "i"], "o", "u", [0.2, "oo"], [0.8, "ae"], [0.5, "ei"],
                [0.5, "ie"], [0.3, "ou"], [0.3, "au"], [0.3, "ai"], [0.05, "uu"], [0.2, "ui"]],
   "consonant":
-    ["one_of", "r", "t", "m", "n", "s", "st", "sl", "b", "p", "pr", "g", "gr", "gl", "k", "cr",
+    ["||", "r", "t", "m", "n", "s", "st", "sl", "b", "p", "pr", "g", "gr", "gl", "k", "cr",
                "y", "l", "th", "sh", "ch"],
   "syllable":
     ["+", ":consonant", ":vowel"],
   "syllables":
-    ["one_of", ":syllable", [0.4, "+", ":syllable", ":syllable"], [0.1, "+", ":syllable", ":syllable", ":syllable"]],
+    ["||", ":syllable", [0.4, "+", ":syllable", ":syllable"], [0.1, "+", ":syllable", ":syllable", ":syllable"]],
   "possessive_common_object_name":
-    ["one_of", ["+", ":scientist_name", "'s ", ":common_object"], ["+", ":common_object", " of ", ":scientist_name"]],
+    ["||", ["+", ":scientist_name", "'s ", ":common_object"], ["+", ":common_object", " of ", ":scientist_name"]],
   "start":
-    ["one_of", ":gemmy_name", ":element_name", [0.2, ":possessive_common_object_name"]]
+    ["||", ":gemmy_name", ":element_name", [0.2, ":possessive_common_object_name"]]
 }
