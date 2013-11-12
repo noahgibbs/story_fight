@@ -1,8 +1,13 @@
+# A StoryFight::Story is a class of stories such as "the hero faces
+# a hazard to rescue the romantic interest."  It can be instantiated
+# to make one or more instances, based on who is available to play
+# each role.
+#
 module StoryFight
   class Story
-    attr_reader :details
+    attr_reader :details, :only_ifs
 
-    def initialize(details = {})
+    def initialize(only_ifs = [], details = {})
       @details = details
     end
 

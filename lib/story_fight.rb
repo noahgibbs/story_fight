@@ -26,27 +26,29 @@ require "story_fight/story"
 # between them.  This story engine is the planning engine to come up
 # with goals, choose between them and so on.
 
-
 module StoryFight
 
-  # A StoryFight::Story is a class of stories such as "the hero faces
-  # a hazard to rescue the romantic interest."  It can be instantiated
-  # to make one or more instances, based on who is available to play
-  # each role.
-  #
-  class Story
-  end
-
   class World
-    attr_reader :details
+    attr_reader :details, :stories
 
     def initialize(options = {})
       @details = []
+      @stories = []
     end
 
     def new_detail(options = {})
       @details << Detail.new(options)
       @details[-1]
+    end
+
+    def add_detail(detail)
+      @details << detail
+      detail
+    end
+
+    def add_story(story)
+      @stories << story
+      story
     end
 
     # A Detail object can have specifics attached to it that are

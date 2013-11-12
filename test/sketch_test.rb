@@ -15,9 +15,9 @@ class SketchTest < MiniTest::Unit::TestCase
     @sneeze = @world.new_detail :desc => :Sneeze, :is => [ :action, :involuntary ]
     @whistle = @world.new_detail :desc => :Whistle, :is => [ :action, :musical ]
 
-    @story1 = Story.new :the_man => { :is => [:actor, :man] },
+    @story1 = Story.new [], :the_man => { :is => [:actor, :man] },
       :action1 => { :is => [:action, :involuntary] }
-    @story2 = Story.new :the_man => { :is => [:actor, :man] },
+    @story2 = Story.new [], :the_man => { :is => [:actor, :man] },
       :action1 => { :is => [:action, :involuntary] },
       :other_man => { :is => [:actor, :nobody] }
   end

@@ -16,18 +16,12 @@ module StoryFight
 
     def story(options = {}, &block)
       sd = StoryDSL.new
-      if block_given?
-        sd.instance_eval(&block)
-      end
+      raise "Must provide a block to story!" unless block_given?
 
-      if options[:with]
-        options[:with].each do |key, val|
-          detail_type = val.delete(:type)
-          sd.with(detail_type, key, val)
-        end
-      end
+      sd.instance_eval(&block)
 
-      s = Story.new sd.details
+      s = Story.new sd.get_only_ifs, sd.get_details
+      @cur_world.add_story s
       @stories ||= []
       @stories << s
       s
@@ -43,6 +37,20 @@ module StoryFight
 
     def get_stories
       @cur_world.stories
+    end
+  end
+
+  # Used by story blocks in DSL
+  class StoryDSL
+    include StoryFight::DSL
+
+    def get_only_ifs
+      @only_ifs || []
+    end
+
+    def only_if(&block)
+      @only_ifs ||= []
+      @only_ifs << block
     end
   end
 end
