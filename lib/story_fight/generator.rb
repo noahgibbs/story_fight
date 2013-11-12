@@ -2,6 +2,10 @@ require "multi_json"
 
 module StoryFight
   class Generator
+    def initialize
+      @symbols = {}
+    end
+
     def load_json_file(filename)
       load_json_string File.read filename
     end
@@ -11,11 +15,15 @@ module StoryFight
     end
 
     def load_hash(content)
-      @symbols = content
+      @symbols = @symbols.merge(content)
+    end
+
+    def clear_symbols
+      @symbols = {}
     end
 
     def generate(start_symbol = "start")
-      raise "Load generator first!" unless @symbols
+      raise "Load generator first!" if @symbols.empty?
 
       expr = @symbols[start_symbol]
       raise "Can't generate symbol #{start_symbol.inspect}!" unless expr
