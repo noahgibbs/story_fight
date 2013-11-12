@@ -1,0 +1,34 @@
+{
+  "actors": [
+    ["Joe", "man"],
+    ["Sam"],
+    ["Bob", "man", "green"],
+    []
+  ],
+  "actions": [
+    ["burp", "involuntary"],
+    ["sneeze", "involuntary"],
+    ["whistle", "musical"],
+    []
+  ],
+  "stories": [
+    {
+      "name": "story1",
+      "details": [
+        ["the_man", "actor", "man"],
+        ["embarrassing_action", "action", "involuntary"],
+        []
+      ]
+    },
+    {
+      "name": "story2",
+      "details": [
+        ["the_man", "actor", "man"],
+        ["other_man", "actor", "nobody"],
+        ["action1", "action", "involuntary"],
+        []
+      ]
+    },
+    []
+  ]
+}
