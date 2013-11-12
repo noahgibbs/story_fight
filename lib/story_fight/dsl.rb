@@ -10,6 +10,7 @@ module StoryFight
 
     def detail(description, options = {})
       ensure_cur_world
+      raise "Use a description, not just options!" if description.is_a?(Hash)
       @cur_world.new_detail options.merge(:desc => description)
     end
 
@@ -26,22 +27,22 @@ module StoryFight
         end
       end
 
-      Story.new sd.details
+      s = Story.new sd.details
+      @stories ||= []
+      @stories << s
+      s
     end
-  end
 
-  class StoryDSL
-    attr_reader :details
+    def get_world
+      @cur_world
+    end
 
-    WITH_FIELDS = [ :must_be ]
-    def with(detail_type, desc, options = {})
-      bad_fields = options.keys - WITH_FIELDS
-      unless bad_fields.empty?
-        raise "Unknown :with fields: #{bad_fields.inspect}!"
-      end
+    def get_details
+      @cur_world.details
+    end
 
-      @details ||= []
-      @details.push desc => { :is => options[:must_be] || {} }
+    def get_stories
+      @cur_world.stories
     end
   end
 end

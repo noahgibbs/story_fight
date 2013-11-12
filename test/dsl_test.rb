@@ -1,23 +1,25 @@
 require "test_helper"
 require "story_fight/dsl"
 
-class DSLTest
-  extend StoryFight::DSL
+class DSLTestWorld
+  include StoryFight::DSL
+end
 
-  # World decl must be first!
-  world :TestWorld
+TEST_WORLD = DSLTestWorld.new
 
-  detail :desc => :Joe, :is => [ :actor, :man ]
-  detail :desc => :Bob, :is => [ :actor, :armless_legless_man ]
+TEST_WORLD.instance_eval do
+  detail :Joe, :is => [ :actor, :man ]
+  detail :Bob, :is => [ :actor, :armless_legless_man ]
 
-  detail :desc => :FiddlersGreen, :is => :place
+  detail :FiddlersGreen, :is => :place
 end
 
 class SketchTest < MiniTest::Unit::TestCase
 
   def test_dsl_basic
-    test_obj = DSLTest.new
-    assert test_obj, "DSL allocation failed!"
+    assert TEST_WORLD.get_details.select { |d| d.desc == :Joe }.size > 0, "Joe must be in test world!"
+    assert TEST_WORLD.get_details.detect { |d| d.desc == :FiddlersGreen}.adjectives.include?(:place),
+      "Fiddlers Green must be a place!"
   end
 
 end

@@ -56,7 +56,7 @@ module StoryFight
       attr_reader :adjectives, :desc
 
       def initialize(options = {})
-        @adjectives = options.delete(:is) || []
+        @adjectives = [options.delete(:is) || []].flatten
         @desc = options.delete(:desc) || :NoDesc
 
         super()
